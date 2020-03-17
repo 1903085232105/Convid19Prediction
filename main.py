@@ -118,7 +118,8 @@ class CoronaVirusPredictor(nn.Module):
 
     def reset_hidden_state(self):
         self.hidden = (
-
+            torch.zeros(self.num_layer, self.seq_len, self.hidden_dim),
+            torch.zeros(self.num_layer, self.seq_len, self.hidden_dim)
         )
 
 
