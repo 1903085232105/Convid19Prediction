@@ -26,6 +26,21 @@ RANDOM_SEED = 42
 np.random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
 
+#load the data file
 df = pd.read_csv('time_series_19-covid-Confirmed.csv')
-print(df.head())
+#remove the first 4 coloum
+df = df.iloc[:, 4:]
+
+#print(df.isnull().sum())
+
+daily_cases = df.sum(axis=0)
+# print(daily_cases.head())
+daily_cases.index = pd.to_datetime(daily_cases.index)
+# print(daily_cases.head())
+
+plt.plot(daily_cases)
+plt.title('Cumulative daily Cases')
+plt.show()
+
+
 
