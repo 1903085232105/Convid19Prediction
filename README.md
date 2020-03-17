@@ -1,5 +1,8 @@
 # Convid19Prediction
 
-first thing i did was i remove the country/ lat/ long columns
-after that i got sum of daily cases and plot using matplotlib
-after that get number of cases per days
+first thing i did was i remove the country/ lat/ long columns 
+after that i got sum of daily cases and plot using matplotlib 
+after that get number of cases per days 
+
+this is the final prediction      
+![prediction](github.com/HirushaR/Convid19Prediction/blob/master/images/final.png)
