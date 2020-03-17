@@ -162,58 +162,72 @@ def train_model(model, traning_data,training_labels, test_data=None, test_labels
         optimiser.step()
     return model.eval(), train_hist, test_hist
 
-model = CoronaVirusPredictor(1, 512, seq_len = seq_lenght,  num_layer=2)
-
-model, train_hist,  test_hist = train_model(model, x_train,y_train, x_test, y_test)
-
-# plt.plot(train_hist, label='Training loss')
-# plt.plot(test_hist, label='Test loss')
-# plt.ylim(0,5)
+# model = CoronaVirusPredictor(1, 512, seq_len = seq_lenght,  num_layer=2)
+#
+# model, train_hist,  test_hist = train_model(model, x_train,y_train, x_test, y_test)
+#
+# # plt.plot(train_hist, label='Training loss')
+# # plt.plot(test_hist, label='Test loss')
+# # plt.ylim(0,5)
+# # plt.legend()
+# # plt.show()
+#
+#
+# ###predicting daily cases
+#
+# with torch.no_grad():
+#     test_seq = x_test[:1]
+#     preds = []
+#     for _ in  range(len(x_test)):
+#         y_test_pred = model(test_seq)
+#         pred = torch.flatten(y_test_pred).item()
+#         preds.append(pred)
+#
+#         new_seq = test_seq.numpy().flatten()
+#         new_seq = np.append(new_seq, [pred])
+#         new_seq = new_seq[1:]
+#         test_seq = torch.as_tensor(new_seq).view(1, seq_lenght, 1).float()
+#
+#
+# true_cases = scaler.inverse_transform(
+#     np.expand_dims(y_test.flatten().numpy(), axis=0)
+# ).flatten()
+#
+# predicted_cases = scaler.inverse_transform(
+#     np.expand_dims(preds, axis=0)
+# ).flatten()
+#
+#
+# plt.plot(daily_cases.index[:len(train_data)],
+#          scaler.inverse_transform(train_data).flatten(),
+#          label='Historical daily Cases')
+# plt.legend()
+#
+#
+# plt.plot(
+#     daily_cases.index[len(train_data):len(train_data) + len(true_cases)],
+#          true_cases,
+#          label='Real daily Cases')
+# plt.legend()
+#
+#
+# plt.plot(
+#     daily_cases.index[len(train_data):len(train_data) + len(true_cases)],
+#          predicted_cases,
+#          label='Predicted daily Cases')
 # plt.legend()
 # plt.show()
 
+###use all the data
 
-###predicting daily cases
+scaler = MinMaxScaler()
+scaler = scaler.fit(np.expand_dims(daily_cases, axis=1))
+all_data = scaler.transform(np.expand_dims(daily_cases, axis=1))
 
-with torch.no_grad():
-    test_seq = x_test[:1]
-    preds = []
-    for _ in  range(len(x_test)):
-        y_test_pred = model(test_seq)
-        pred = torch.flatten(y_test_pred).item()
-        preds.append(pred)
+x_all , y_all = sliding_windows(all_data, seq_lenght)
 
-        new_seq = test_seq.numpy().flatten()
-        new_seq = np.append(new_seq, [pred])
-        new_seq = new_seq[1:]
-        test_seq = torch.as_tensor(new_seq).view(1, seq_lenght, 1).float()
+x_all = torch.from_numpy(x_all).float()
+y_all = torch.from_numpy(y_all).float()
 
-
-true_cases = scaler.inverse_transform(
-    np.expand_dims(y_test.flatten().numpy(), axis=0)
-).flatten()
-
-predicted_cases = scaler.inverse_transform(
-    np.expand_dims(preds, axis=0)
-).flatten()
-
-
-plt.plot(daily_cases.index[:len(train_data)],
-         scaler.inverse_transform(train_data).flatten(),
-         label='Historical daily Cases')
-plt.legend()
-
-
-plt.plot(
-    daily_cases.index[len(train_data):len(train_data) + len(true_cases)],
-         true_cases,
-         label='Real daily Cases')
-plt.legend()
-
-
-plt.plot(
-    daily_cases.index[len(train_data):len(train_data) + len(true_cases)],
-         predicted_cases,
-         label='Predicted daily Cases')
-plt.legend()
-plt.show()
+model = CoronaVirusPredictor(1, 512, seq_len=seq_lenght, num_layer=2)
+model, train_hist, _ = train_model(model, x_all,y_all)
