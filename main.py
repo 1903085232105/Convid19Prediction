@@ -68,5 +68,17 @@ scaler = scaler.fit(np.expand_dims(train_data, axis=1))
 train_data = scaler.transform(np.expand_dims(train_data, axis=1))
 test_data = scaler.transform(np.expand_dims(test_data, axis=1))
 
+def sliding_windows(data, seq_length):
+    xs = []
+    ys = []
+
+    for i in range(len(data)- seq_length -1):
+        x = data[i: (i+ seq_length)]
+        y = data[i + seq_length]
+        xs.append(x)
+        ys.append(y)
+
+    return np.array(xs), np.array(ys)
+
 
 
