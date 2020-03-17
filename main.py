@@ -198,8 +198,15 @@ predicted_cases = scaler.inverse_transform(
 ).flatten()
 
 
-plt.plot(daily_cases.index[:len(train_data)],
-         scaler.inverse_transform(train_data).flatten(),
-         label='Historical daily Cases')
+# plt.plot(daily_cases.index[:len(train_data)],
+#          scaler.inverse_transform(train_data).flatten(),
+#          label='Historical daily Cases')
+# plt.legend()
+# plt.show()
+
+plt.plot(
+    daily_cases.index[len(train_data):len(train_data) + len(true_cases)],
+         true_cases,
+         label='Real daily Cases')
 plt.legend()
 plt.show()
