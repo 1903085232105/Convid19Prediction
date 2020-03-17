@@ -187,3 +187,12 @@ with torch.no_grad():
         new_seq = np.append(new_seq, [pred])
         new_seq = new_seq[1:]
         test_seq = torch.as_tensor(new_seq).view(1, seq_lenght, 1).float()
+
+
+true_cases = scaler.inverse_transform(
+    np.expand_dims(y_test.flatten().numpy(), axis=0)
+).flatten()
+
+predicted_cases = scaler.inverse_transform(
+    np.expand_dims(preds, axis=0)
+).flatten()
