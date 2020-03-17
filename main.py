@@ -153,6 +153,15 @@ def train_model(model, traning_data,training_labels, test_data=None, test_labels
         elif t % 10 ==0 :
             print(f'Epoc {t} train loss: {loss.item()}')
 
+        train_hist[t] = loss.item()
+
+        optimiser.zero_grad()
+
+        loss.backward()
+
+        optimiser.step()
+    return model.eval(), train_hist, test_hist
+
 
 
 
