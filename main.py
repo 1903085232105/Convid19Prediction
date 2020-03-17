@@ -80,5 +80,16 @@ def sliding_windows(data, seq_length):
 
     return np.array(xs), np.array(ys)
 
+seq_lenght = 5
+x_train,  y_train = sliding_windows(train_data, seq_lenght)
+x_test,  y_test = sliding_windows(test_data, seq_lenght)
+
+# print(x_train[:2])
+
+x_train = torch.from_numpy(x_train).float()
+y_train = torch.from_numpy(y_train).float()
+
+x_test = torch.from_numpy(x_test).float()
+y_test = torch.from_numpy(y_test).float()
 
 
