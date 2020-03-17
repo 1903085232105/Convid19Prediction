@@ -127,6 +127,21 @@ class CoronaVirusPredictor(nn.Module):
         return y_pred
 
 def train_model(model, traning_data,training_labels, test_data=None, test_labels=None):
+    loss_fn = nn.MSELoss(reduction='sum')
+
+    optimiser = optim.Adam(model.parameter(), lr=1e-3)
+    num_epoc = 60
+
+    train_hist = np.zeros(num_epoc)
+    test_hist = np.zeros(num_epoc)
+
+    for t in range(num_epoc):
+        model.reset_hidden_state()
+
+        y_pred = model(x_train)
+
+        loss = loss_fn(y_pred.float(), y_train)
+
 
 
 
