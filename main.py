@@ -39,17 +39,34 @@ daily_cases.index = pd.to_datetime(daily_cases.index)
 # print(daily_cases.head())
 
 
-####ploting the daily cases
+####ploting the Cumulative daily cases
 
 # plt.plot(daily_cases)
 # plt.title('Cumulative daily Cases')
 # plt.show()
 
 daily_cases = daily_cases.diff().fillna(daily_cases[0]).astype(np.int64)
-#print(daily_cases.head())
+# print(daily_cases.head())
 
-plt.plot(daily_cases)
-plt.title('daily Cases')
-plt.show()
+# plt.plot(daily_cases)
+# plt.title('daily Cases')
+# plt.show()
+
+#number of days
+#print(daily_cases.shape)
+
+##preprocessing
+
+test_data_size = 14
+train_data = daily_cases[:-test_data_size]
+test_data = daily_cases[-test_data_size:]
+
+#print(test_data.shape)
+
+scaler = MinMaxScaler()
+scaler = scaler.fit(np.expand_dims(train_data, axis=1))
+train_data = scaler.transform(np.expand_dims(train_data, axis=1))
+test_data = scaler.transform(np.expand_dims(test_data, axis=1))
+
 
 
