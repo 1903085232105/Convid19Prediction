@@ -116,7 +116,10 @@ class CoronaVirusPredictor(nn.Module):
 
         self.linear = nn.Linear(in_features=hidden_dim, out_features=1)
 
+    def reset_hidden_state(self):
+        self.hidden = (
 
+        )
 
 
 
