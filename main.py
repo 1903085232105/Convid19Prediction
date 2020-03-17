@@ -142,6 +142,17 @@ def train_model(model, traning_data,training_labels, test_data=None, test_labels
 
         loss = loss_fn(y_pred.float(), y_train)
 
+        if test_data is not None:
+            with torch.no_grad():
+                y_test_pred = model(x_test)
+                test_loss = loss_fn(y_test_pred.float(), y_test)
+            test_hist[t] = test_loss.item()
+
+            if t % 10 == 0:
+                print(f'Epoc {t} train loss: {loss.item()} test loss: {test_loss.item()}')
+        elif t % 10 ==0 :
+            print(f'Epoc {t} train loss: {loss.item()}')
+
 
 
 
