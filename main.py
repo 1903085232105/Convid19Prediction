@@ -91,11 +91,6 @@ y_train = torch.from_numpy(y_train).float()
 
 x_test = torch.from_numpy(x_test).float()
 y_test = torch.from_numpy(y_test).float()
-
-
-
-
-
 ### model##
 
 class CoronaVirusPredictor(nn.Module):
@@ -130,6 +125,8 @@ class CoronaVirusPredictor(nn.Module):
             lstm_out.view(self.seq_len, len(input), self.hidden_dim)[-1]
         )
         return y_pred
+
+def train_model(model, traning_data,training_labels, test_data=None, test_labels=None):
 
 
 
