@@ -231,3 +231,22 @@ y_all = torch.from_numpy(y_all).float()
 
 model = CoronaVirusPredictor(1, 512, seq_len=seq_lenght, num_layer=2)
 model, train_hist, _ = train_model(model, x_all,y_all)
+
+
+DAYS_TO_PREDICT = 12
+with torch.no_grad():
+    test_seq = x_all[:1]
+    preds = []
+    for _ in  range(DAYS_TO_PREDICT):
+        y_test_pred = model(test_seq)
+        pred = torch.flatten(y_test_pred).item()
+        preds.append(pred)
+
+        new_seq = test_seq.numpy().flatten()
+        new_seq = np.append(new_seq, [pred])
+        new_seq = new_seq[1:]
+        test_seq = torch.as_tensor(new_seq).view(1, seq_lenght, 1).float()
+
+predicted_cases = scaler.inverse_transform(
+    np.expand_dims(preds, axis=0)
+).flatten()
