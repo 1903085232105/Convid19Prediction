@@ -94,12 +94,12 @@ y_test = torch.from_numpy(y_test).float()
 ### model##
 
 class CoronaVirusPredictor(nn.Module):
-    def __init__(self, input_dim, hidden_dim, seq_lenght,num_layer=2):
+    def __init__(self, input_dim, hidden_dim, seq_len,num_layer=2):
         super(CoronaVirusPredictor, self).__init__()
 
         self.input_dim = input_dim
         self.hidden_dim =hidden_dim
-        self.seq_length = seq_lenght
+        self.seq_len = seq_len
         self.num_layer = num_layer
         #long short term memory
         self.lstm = nn.LSTM(
@@ -162,7 +162,5 @@ def train_model(model, traning_data,training_labels, test_data=None, test_labels
         optimiser.step()
     return model.eval(), train_hist, test_hist
 
-
-
-
+model = CoronaVirusPredictor(1, 512, seq_len = seq_lenght,  num_layer=2)
 
