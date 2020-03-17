@@ -256,3 +256,13 @@ predicted_index = pd.date_range(
     periods=DAYS_TO_PREDICT + 1,
     closed='right'
 )
+
+predicted_cases = pd.Series(
+    data=predicted_cases,
+    index=predicted_index
+)
+
+plt.plot(daily_cases, label='Historical Daily Cases')
+plt.plot(predicted_cases, label='Predicted Daily Cases')
+plt.legend()
+plt.show()
