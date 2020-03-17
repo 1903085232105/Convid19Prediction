@@ -166,3 +166,9 @@ model = CoronaVirusPredictor(1, 512, seq_len = seq_lenght,  num_layer=2)
 
 model, train_hist,  test_hist = train_model(model, x_train,y_train, x_test, y_test)
 
+plt.plot(train_hist, label='Training loss')
+plt.plot(test_hist, label='Test loss')
+plt.ylim(0,5)
+plt.legend()
+plt.show()
+
