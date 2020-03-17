@@ -250,3 +250,9 @@ with torch.no_grad():
 predicted_cases = scaler.inverse_transform(
     np.expand_dims(preds, axis=0)
 ).flatten()
+
+predicted_index = pd.date_range(
+    start= daily_cases.index[-1],
+    periods=DAYS_TO_PREDICT + 1,
+    closed='right'
+)
