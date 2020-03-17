@@ -122,6 +122,14 @@ class CoronaVirusPredictor(nn.Module):
             torch.zeros(self.num_layer, self.seq_len, self.hidden_dim)
         )
     def forward(self, input):
+        lstm_out, self.hidden = self.lstm(
+            input.view(len(input), self.seq_len, -1),
+            self.hidden
+        )
+        y_pred = self.linear(
+            lstm_out.view(self.seq_len, len(input), self.hidden_dim)[-1]
+        )
+        return y_pred
 
 
 
