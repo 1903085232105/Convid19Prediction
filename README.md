@@ -5,4 +5,4 @@ after that i got sum of daily cases and plot using matplotlib
 after that get number of cases per days 
 
 this is the final prediction      
-![prediction](github.com/HirushaR/Convid19Prediction/blob/master/images/final.png)
+![prediction](images/final.png)
