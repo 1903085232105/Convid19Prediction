@@ -104,3 +104,5 @@ class CoronaVirusPredictor(nn.Module):
         self.num_layer = num_layer
 
 
+
+
