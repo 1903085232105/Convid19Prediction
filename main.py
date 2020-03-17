@@ -34,13 +34,22 @@ df = df.iloc[:, 4:]
 #print(df.isnull().sum())
 
 daily_cases = df.sum(axis=0)
-# print(daily_cases.head())
+#print(daily_cases.head())
 daily_cases.index = pd.to_datetime(daily_cases.index)
 # print(daily_cases.head())
 
-plt.plot(daily_cases)
-plt.title('Cumulative daily Cases')
-plt.show()
 
+####ploting the daily cases
+
+# plt.plot(daily_cases)
+# plt.title('Cumulative daily Cases')
+# plt.show()
+
+daily_cases = daily_cases.diff().fillna(daily_cases[0]).astype(np.int64)
+#print(daily_cases.head())
+
+plt.plot(daily_cases)
+plt.title('daily Cases')
+plt.show()
 
 
