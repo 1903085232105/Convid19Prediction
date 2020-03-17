@@ -1,8 +1,12 @@
 # Convid19Prediction
 
-first thing i did was i remove the country/ lat/ long columns 
-after that i got sum of daily cases and plot using matplotlib 
-after that get number of cases per days 
+this mode is base on 61 data so prediction is not so great so far
+
 
 this is the final prediction      
 ![prediction](images/final.png)
+![daily cases](images/daily cases.png)
+![history_daily_cases](images/history_daily_cases.png)
+![prediction](images/Figure_1.png)
+![model Test](images/train_test_lost.png)
+![data](images/corona_1.jpeg)
