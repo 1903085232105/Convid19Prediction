@@ -26,3 +26,6 @@ RANDOM_SEED = 42
 np.random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
 
+df = pd.read_csv('time_series_19-covid-Confirmed.csv')
+print(df.head())
+
