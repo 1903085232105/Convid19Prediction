@@ -106,13 +106,17 @@ class CoronaVirusPredictor(nn.Module):
         self.hidden_dim =hidden_dim
         self.seq_length = seq_lenght
         self.num_layer = num_layer
-
+        #long short term memory
         self.lstm = nn.LSTM(
             input_size=input_dim,
             hidden_size=hidden_dim,
             num_layers=num_layer,
             dropout=0.5
         )
+
+        self.linear = nn.Linear(in_features=hidden_dim, out_features=1)
+
+
 
 
 
